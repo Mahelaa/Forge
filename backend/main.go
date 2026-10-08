@@ -57,11 +57,11 @@ func main(){
  rows, err := db.DB.Query(`SELECT * FROM forge."User_table"`)
  stopLoad()
  if err != nil {
-  log.Fatalf("Query failed: %v", err)
+  log.Fatalf("Query error: %v", err)
  }
  defer rows.Close()
 
- fmt.Println("Database connected")
+ fmt.Println("Db connected")
 
  for rows.Next(){
     var accountID int64
@@ -82,7 +82,7 @@ func main(){
 
 //Sync service
 func sync(){
-    
+
 }
 
 //Lib 
