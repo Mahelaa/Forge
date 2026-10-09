@@ -12,9 +12,20 @@
   "app": {
     "windows": [
       {
+        "label":"main",
+        "visible":false,
         "title": "Forge",
         "width": 800,
         "height": 600
+      },
+      {
+        "label": "splash",
+        "url": "/splashscreen",
+        "decorations":false,
+        "transparent":true,
+        "shadow":false,
+        "resizable":false,
+        "center":true
       }
     ],
     "security": {
