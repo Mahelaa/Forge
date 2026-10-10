@@ -1,1 +1,1 @@
-Author - Shanes
+Author - shanes
