@@ -13,3 +13,5 @@ tauri-build = { version = "2", features = [] }
 
 [dependencies]
 tauri = { version = "2", features = [] }
+
+keyring = { version = "3.6.3", features = ["windows-native", "apple-native", "sync-secret-service"] }

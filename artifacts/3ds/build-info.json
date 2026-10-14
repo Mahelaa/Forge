@@ -1,0 +1,64 @@
+{
+  "name": "Forge 3DS",
+  "version": "0.2.3",
+  "titleId": "000400000F07A100",
+  "functionality": "Splash screen with signed online CIA updater",
+  "greeting": "Hello its me Wario.",
+  "image": "devkitpro/devkitarm@sha256:116afba8df8453961de2936ffab20dd441edf4d682856c1ec8b0e53d7ed0bbf5",
+  "tools": [
+    {
+      "name": "makerom",
+      "version": "0.18.4",
+      "url": "https://github.com/3DSGuy/Project_CTR/releases/download/makerom-v0.18.4/makerom-v0.18.4-ubuntu_x86_64.zip",
+      "sha256": "dd596854718c195c6e3229286be485b122921715555af8ae5cf8e9a465d9f970"
+    },
+    {
+      "name": "ctrtool",
+      "version": "1.2.0",
+      "url": "https://github.com/3DSGuy/Project_CTR/releases/download/ctrtool-v1.2.0/ctrtool-v1.2.0-ubuntu_x86_64.zip",
+      "sha256": "d53f59baf5bad5339434af2bfc5bd2a9547978d6933e80eac5902f5a11b738b1"
+    },
+    {
+      "name": "bannertool",
+      "version": "1.2.0",
+      "url": "https://github.com/diasurgical/bannertool/releases/download/1.2.0/bannertool.zip",
+      "sha256": "69768596f836acb3e3aeaa66e47c6ba560dde813c6dfcd33c8afc25fe29b7524"
+    }
+  ],
+  "files": [
+    {
+      "name": "forge-3ds.cia",
+      "bytes": 670656,
+      "sha256": "a8e1e3501cc0308aabb735c1333fc63385e945a1a6a02e1d66f4ba686eda2590"
+    },
+    {
+      "name": "forge-3ds.3dsx",
+      "bytes": 1002228,
+      "sha256": "31f95c1d02d8e5a015d271cc3f3d2d6e175e20e5b15b1ad1ac6823b9d7ff70e2"
+    },
+    {
+      "name": "forge-3ds.smdh",
+      "bytes": 14016,
+      "sha256": "08c2d62962dcd89797f2acfd21e99e3054aed6c861f238813752be3db436b938"
+    },
+    {
+      "name": "manifest.bin",
+      "bytes": 316,
+      "sha256": "4338d7897afba20adda43e41f5a89c6b78ddd2fef6b8d5d6aa8803f2c52dfc51"
+    },
+    {
+      "name": "forge-update.fup",
+      "bytes": 670972,
+      "sha256": "455c1f3c94ad6deb746a1e2305fece532aa69af0f4683ec29eead481f197eecf"
+    },
+    {
+      "name": "latest.json",
+      "bytes": 329,
+      "sha256": "5cd32cdf293cca7ce4090e96b6f38a76c6605aba730c693c30101edf3c70e896"
+    }
+  ],
+  "retainVersions": false,
+  "validation": "CIA content, exheader and all ExeFS payload hashes verified",
+  "hardwareTested": true,
+  "hardwareValidation": "User confirmed update from 0.2.2 to 0.2.3 through Forge, then reopened on 0.2.3."
+}

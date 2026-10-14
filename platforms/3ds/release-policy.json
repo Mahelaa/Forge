@@ -1,0 +1,4 @@
+{
+  "retainVersions": false,
+  "reason": "Keep only the latest build until the user declares the release stable."
+}

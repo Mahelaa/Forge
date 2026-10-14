@@ -34,3 +34,52 @@ summary { cursor: pointer; font-weight: 600; margin-bottom: 16px; }
 button.danger { background: #ff9696; }
 [hidden] { display: none !important; }
 @media (max-width: 600px) { main { padding: 30px 18px; } .fields, .user { grid-template-columns: 1fr; } .inline { flex-direction: column; } }
+
+/* A transparent native surface lets the launch mark float over the desktop. */
+html, body { background: transparent; }
+body.launching { overflow: hidden; }
+body.auth-surface { background: #191d25; }
+body.workspace-surface { background: #111318; }
+.logo-filter { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
+#launch-splash { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; color: #fff; background: transparent; }
+.splash-content { width: min(600px, 82vw); text-align: center; opacity: 0; }
+.forge-logo { position: relative; overflow: hidden; width: 100%; aspect-ratio: 4.3; font-size: 64px; font-weight: 900; }
+.forge-logo img { position: absolute; width: 160%; max-width: none; left: -30%; top: -295%; filter: url(#logo-alpha); }
+.splash-logo { filter: drop-shadow(0 2px 3px #0008); }
+.splash-track { width: 92px; height: 2px; margin: 28px auto 0; overflow: hidden; }
+.splash-track span { display: block; height: 100%; background: #efac68; transform-origin: left; }
+#launch-status { font-size: 11px; letter-spacing: .06em; color: #fff; text-shadow: 0 1px 3px #000; margin-top: 14px; }
+.window-bar { height: 40px; display: flex; align-items: center; justify-content: space-between; user-select: none; padding-left: 20px; background: inherit; }
+.window-brand { font-size: 10px; color: #939aa7; letter-spacing: .18em; }
+.window-actions { display: flex; align-self: stretch; }
+.window-actions button { width: 42px; padding: 0; border-radius: 0; background: transparent; color: #929ba9; font-size: 23px; font-weight: 400; }
+.window-actions button:hover { color: #fff; background: #ffffff0a; }
+.window-actions #window-close:hover { background: #a33b3b; }
+#auth-screen { margin: 0; min-height: calc(100dvh - 40px); width: 100%; background: #191d25; }
+.auth-content { padding: 18px 44px 22px; max-width: 560px; margin: 0 auto; }
+.auth-logo { width: 170px; margin: 0 auto 24px; }
+.auth-heading { text-align: center; }
+.auth-heading h1 { font-size: 28px; letter-spacing: -.025em; line-height: 1.2; margin: 12px 0 8px; }
+.auth-heading p { color: #9ca7b8; font-size: 13px; line-height: 1.6; margin: 0; }
+.auth-heading .eyebrow { font-size: 10px; }
+.auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-bottom: 1px solid #343a46; margin: 26px 0 18px; }
+.auth-tabs button { background: transparent; color: #9ca7b8; border-radius: 0; border-bottom: 2px solid transparent; font-size: 13px; padding: 12px 8px; }
+.auth-tabs button.active { color: #edf0f5; border-bottom-color: #efac68; }
+#auth-screen #status { font-size: 12px; margin: 0 0 20px; line-height: 1.5; }
+#auth-screen .connection { margin: 0; padding: 0; border: 0; border-radius: 0; background: transparent; }
+#auth-screen .fields { grid-template-columns: 1fr; gap: 18px; }
+#auth-screen form > .fields > button { margin-top: 4px; }
+#auth-screen label { font-size: 12px; }
+#auth-screen input { padding: 13px; }
+#auth-screen details { margin-top: 22px; padding-top: 0; border: 0; }
+#auth-screen summary { color: #aeb9c9; font-size: 12px; font-weight: 500; margin-bottom: 12px; }
+#auth-screen .inline { flex-wrap: wrap; }
+#auth-screen .inline label { min-width: 180px; }
+#auth-screen .inline button { font-size: 12px; }
+.retry-session { font-size: 12px; width: 100%; margin-bottom: 18px; }
+.auth-footer { margin: 24px 0 0; padding-top: 14px; border-top: 1px solid #ffffff0a; color: #89909c; font-size: 10px; letter-spacing: .12em; display: flex; justify-content: space-between; }
+.auth-footer span { color: #656d7b; font-size: 9px; letter-spacing: .1em; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-thumb { background: #3b4351; border-radius: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+@media (max-width: 600px) { .auth-content { padding: 18px 28px 22px; } .auth-heading h1 { font-size: 26px; } #auth-screen .inline { align-items: stretch; } }

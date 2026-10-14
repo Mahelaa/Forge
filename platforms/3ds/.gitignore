@@ -1,0 +1,10 @@
+build/
+include/logo.h
+assets/
+*.elf
+*.map
+*.smdh
+*.3dsx
+*.cia
+*.bnr
+include/update-trust.h

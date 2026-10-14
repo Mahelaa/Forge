@@ -1,3 +1,4 @@
+import { sessionCredential } from "./native";
 export interface ForgeUser { accountid: string; username: string; screen_name: string }
 export interface ForgeAccount extends ForgeUser { email: string; email_verified: boolean; role: "member" | "admin" }
 export interface ForgeSession { id: string; created_at: string; last_used_at: string; expires_at: string; user_agent: string }
@@ -10,16 +11,40 @@ export class ApiError extends Error {
   constructor(message: string, public readonly status: number) { super(message); }
 }
 
-// Keep credentials in memory. Reloading the app requires signing in again.
+// Access tokens stay in memory; desktop refresh tokens use the OS credential store.
 let tokens: Tokens | null = null;
 let accessDeadline = 0;
 let epoch = 0;
 let refreshing: Promise<void> | null = null;
 
-export function clearSession() { tokens = null; accessDeadline = 0; epoch++; refreshing = null; }
+let credentialWork: Promise<unknown> = Promise.resolve();
+function persistCredential(token: string | null) {
+  credentialWork = credentialWork.catch(() => {}).then(() => sessionCredential(token));
+  // Persistence failure must not turn a valid server login into an authentication failure.
+  void credentialWork.catch(() => console.warn("Could not save the Forge session securely."));
+}
+export function clearSession() { tokens = null; accessDeadline = 0; epoch++; refreshing = null; persistCredential(null); }
+export async function restoreSession(): Promise<ForgeAccount | null> {
+  const started = epoch;
+  await credentialWork.catch(() => {});
+  const token = await sessionCredential();
+  if (started !== epoch) throw new ApiError("Session changed. Please try again.", 409);
+  if (!token) return null;
+  tokens = { access_token: "", refresh_token: token, token_type: "Bearer", expires_in: 0, refresh_expires_at: "" };
+  accessDeadline = 0;
+  try { return await getMe(); }
+  catch (error) {
+    if (error instanceof ApiError && error.status === 401 && !tokens) return null;
+    if (started !== epoch) throw new ApiError("Session changed. Please try again.", 409);
+    tokens = null; accessDeadline = 0;
+    if (error instanceof ApiError && error.status === 401) { clearSession(); return null; }
+    throw error;
+  }
+}
 
 function acceptTokens(value: Tokens) {
   tokens = value;
+  persistCredential(value.refresh_token);
   accessDeadline = Date.now() + value.expires_in * 1000;
 }
 

@@ -1,0 +1,41 @@
+Forge 3DS signed updater
+
+Build from the Forge project directory:
+  node platforms/3ds/build.mjs
+Requirements: Node.js 22+ and Docker with Linux containers.
+The compiler image and packaging tools are pinned. Source: platforms/3ds/source.
+Logo: public/logo.png. Version and update server: platforms/3ds/release.json.
+
+Install artifacts/3ds/forge-3ds.cia over the existing Forge title using FBI.
+Version 0.1.1 was confirmed to launch by the user. It needs this one manual update
+because it does not contain an updater. Version 0.2.0 launch and online update checking were confirmed on hardware by the user.
+The 0.2.0 updater downloaded successfully but failed its generic archive space check.
+Install 0.2.2 manually with FBI to get the corrected SD-specific capacity check.
+The user confirmed installation from 0.2.2 to 0.2.3 through the internet updater,
+then exited and reopened Forge on 0.2.3 successfully.
+The original logo animation and greeting play before the update screen appears.
+Forge checks the signed release on the existing HTTPS API. Press X to check again,
+A to download/install an available update, B to cancel a download, START to exit.
+After installation, exit and reopen Forge. Keep the console powered during install.
+Authentication, mod management and save sync are not implemented in this native build.
+
+Publishing a later version through the existing GitHub deployment workflow:
+  1. Increase version in platforms/3ds/release.json (major.minor.patch).
+  2. Run node platforms/3ds/build.mjs.
+  3. Run node platforms/3ds/publish.mjs --message "v0.03 - Publish Forge 3DS update".
+The publishing command commits only the signed bundle in the sibling forge-server
+checkout and pushes master. Alternatively set FORGE_GITHUB_TOKEN with contents-write
+access to Mahelaa/forge-server. Wait for its deployment workflow to succeed.
+A server embeds only its latest bundle; no writable VM update folder is required.
+The deployed public manifest and CIA download use /api/updates/3ds/.
+
+Signing key: C:/Users/Mahela.Abeysekara/.forge/3ds-update-signing.pem.
+Back up this private key securely outside Git. Existing clients trust its public key;
+losing or changing it requires a manually installed client with the new trust key.
+The client verifies TLS, RSA signatures, title/version and the SHA-256 of the CIA.
+The CIA is a homebrew test-key package for custom firmware, not a retail signature.
+Payload hashes are checked during packaging. Internet update installation was confirmed on hardware from 0.2.2 to 0.2.3.
+Startup retains the 0.1.1 SD initialization fix; SD access begins only for installation.
+
+Only the latest successful build remains in artifacts/3ds. Failed builds preserve
+that output. Version archives remain disabled until the user declares a stable release.
